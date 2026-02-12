@@ -1,0 +1,261 @@
+# ============================================================================
+# KWINRC - KDE Window Manager Configuration
+# ============================================================================
+# This is the ULTIMATE configuration combining:
+# - Krohnkite auto-tiling with Vim navigation
+# - Native KDE tiling with gaps
+# - Better Blur DX + Blur Plus configuration
+# - Optimized compositor settings
+# - Dynamic Workspaces & Kinetic Squash animations
+# - Klassy window decorations
+# 
+# Last updated: 2025
+# ============================================================================
+
+# ============================================================================
+# VIRTUAL DESKTOPS CONFIGURATION
+# ============================================================================
+# Configure your workspace layout here
+[Desktops]
+Id_1=c8deb809-bca0-4991-b14a-b61695001f9e
+Id_2=7761c10a-e469-4ed9-aeaa-ef4f186e4c24
+Id_3=bd3cdc3d-aece-4cb1-b033-4cac9232db25
+Number=3              # Number of virtual desktops (workspace count)
+Rows=1                # How many rows of desktops (1 = horizontal layout)
+
+# ============================================================================
+# COMPOSITOR SETTINGS
+# ============================================================================
+# These settings control the rendering engine and performance
+[Compositing]
+Backend=OpenGL        # Use OpenGL for rendering (best performance)
+Enabled=true          # Enable compositor (required for effects)
+GLCore=true           # Use OpenGL Core Profile (modern, faster)
+GLPreferBufferSwap=a  # Auto-select buffer swap method
+GLTextureFilter=2     # Bilinear filtering (1=nearest, 2=bilinear, 3=trilinear)
+HiddenPreviews=5      # Number of thumbnails in task switcher
+OpenGLIsUnsafe=false  # Allow OpenGL even if detected as risky
+WindowsBlockCompositing=true  # Let fullscreen windows disable compositor for perf
+
+# ============================================================================
+# BLUR EFFECTS CONFIGURATION
+# ============================================================================
+# Two blur options available - choose one or use both configs
+
+# --- Better Blur DX Plugin (if installed) ---
+# A popular blur plugin with good performance
+[Plugins]
+better_blur_dxEnabled=true    # Enable Better Blur DX plugin
+blurEnabled=false             # Disable native blur (use Better Blur instead)
+contrastEnabled=false         # Disable contrast effect (conflicts with blur)
+
+# --- Blur Plus Configuration (optional enhancement) ---
+# Advanced blur with corner radius, saturation, brightness
+# Install: yay -S kwin-effects-blurplus (Arch)
+[Effect-blurplus]
+BlurStrength=3                      # Blur intensity (1-10, higher = more blur)
+Brightness=1.1                      # Brightness boost (1.0 = normal)
+Saturation=1.3                      # Color saturation (1.0 = normal, higher = more vibrant)
+NoiseStrength=7                     # Add slight noise texture (0-10)
+RefractionCornerRadius=94           # Corner radius in pixels (0-100)
+RefractionEdgeSize=19               # Edge blur size
+RefractionMode=1                    # Refraction mode (1 = standard)
+RefractionNormalPow=11              # Normal map power for refraction
+RefractionRGBFringing=5             # RGB chromatic aberration amount
+RefractionStrength=8                # Refraction intensity
+RefractionTextureRepeatMode=1       # How texture repeats
+RoundCornersOfMaximizedWindows=true # Keep rounded corners when maximized
+RoundedCornersAntialiasing=5        # AA quality for rounded corners
+WindowClasses=plasmashell\nksplashqml\nlatte-dock  # Windows to exclude from blur
+
+# ============================================================================
+# OTHER DESKTOP EFFECTS
+# ============================================================================
+[Plugins]
+# --- Core Effects ---
+krohnkiteEnabled=true              # Auto-tiling window manager (main feature!)
+dynamic_workspacesEnabled=true     # Auto-create/remove workspaces as needed
+kinetic_squashEnabled=true         # Smooth squash/stretch animations
+
+# --- Visual Effects ---
+diminactiveEnabled=true            # Dim inactive windows (improves focus)
+highlightwindowEnabled=true        # Highlight window when hovering (useful for tiling)
+kwin4_effect_fadeEnabled=true      # Fade in/out animations
+kwin4_effect_fadedesktopEnabled=true  # Fade when switching desktops
+kwin4_effect_translucencyEnabled=true # Window translucency support
+
+# --- Optional Effects (enable if you want) ---
+# blurEnabled=false                 # Native KDE blur (disabled, using Better Blur DX)
+# contrastEnabled=false             # Background contrast (conflicts with blur)
+# kwin4_effect_squashEnabled=false  # Squash effect (we use kinetic_squash instead)
+# slideEnabled=false                # Slide animation for desktop switching
+# zoomEnabled=false                 # Zoom accessibility feature
+
+# ============================================================================
+# KROHNKITE TILING CONFIGURATION
+# ============================================================================
+# Auto-tiling window manager with Vim-style navigation
+[Script-krohnkite]
+# --- Gap Configuration (spacing between windows) ---
+screenGapBottom=4      # Gap at bottom of screen (pixels)
+screenGapLeft=4        # Gap at left of screen (pixels)
+screenGapRight=4       # Gap at right of screen (pixels)
+screenGapTop=4         # Gap at top of screen (pixels)
+tileLayoutGap=4        # Gap between windows (pixels)
+
+# NOTE: If you prefer larger gaps (e.g., 10px like in some configs),
+# change all gap values above to 10. Current setting is 4px for
+# more usable screen space while maintaining visual separation.
+
+# --- Layout Priority (which layouts to use) ---
+monocleLayoutOrder=1   # Monocle (fullscreen) layout
+tileLayoutOrder=2      # Master-stack tile layout
+columnsLayoutOrder=3   # Multi-column layout
+spiralLayoutOrder=4    # Spiral/Fibonacci layout
+
+# Set to 0 to disable a layout. Order determines cycling sequence.
+
+# --- Window Behavior ---
+noTileBorder=true      # Remove borders from tiled windows (cleaner look)
+limitTileWidth=false   # Don't limit window width (use full space)
+
+# --- Filters (CRITICAL - prevents gray gaps) ---
+# These window classes should NOT be tiled by Krohnkite
+ignoreClass=krunner,yakuake,spectacle,xwaylandvideobridge,plasmashell,ksplashqml,kded5,kded6,ksplash,plasma-desktop,plasma
+
+# Add any other apps that should float (e.g., calculator, system settings)
+
+# ============================================================================
+# NATIVE KDE TILING
+# ============================================================================
+# KDE Plasma 6 has built-in tiling that works alongside Krohnkite
+[Tiling]
+padding=4              # Padding for native tiling (matches Krohnkite gaps)
+
+# This gives you consistent 4px gaps whether using Krohnkite auto-tiling
+# or KDE's manual tiling (Meta+Arrow keys)
+
+# ============================================================================
+# WINDOW DECORATIONS (Borders, Title Bars)
+# ============================================================================
+[org.kde.kdecoration2]
+library=org.kde.klassy      # Klassy decorations (customizable)
+theme=Klassy                # Theme name
+
+# To use different decorations:
+# library=org.kde.breeze (default KDE)
+# library=org.kde.kwin.aurorae (for custom themes)
+
+# ============================================================================
+# WINDOW BEHAVIOR
+# ============================================================================
+[Windows]
+# --- Focus Settings ---
+FocusPolicy=FocusFollowsMouse   # Focus follows mouse (or ClickToFocus)
+FocusStealingPreventionLevel=1  # Low prevention (1), High (4)
+NextFocusPrefersMouse=true      # Prefer mouse position for next focus
+SeparateScreenFocus=true        # Independent focus per screen (multi-monitor)
+ActiveMouseScreen=false         # Don't auto-focus screen under mouse
+
+# --- Window Placement ---
+Placement=Centered              # Where new windows appear (Centered, Smart, etc.)
+
+# --- Other Behaviors ---
+RollOverDesktops=true           # Wrap around when switching desktops
+ElectricBorders=0               # Screen edge actions (0=disabled)
+ElectricBorderDelay=150         # Delay before edge action triggers (ms)
+
+# ============================================================================
+# TASK SWITCHER (Alt+Tab)
+# ============================================================================
+[TabBox]
+ApplicationsMode=0              # Show all windows (0) or only current app (1)
+BorderActivate=9                # Activate by screen edge (9=disabled)
+BorderAlternativeActivate=9     # Alternative activation
+DesktopLayout=org.kde.breeze.desktop  # Layout style
+DesktopListLayout=org.kde.breeze.desktop  # Desktop list style
+DesktopMode=1                   # Show desktops in switcher (0=no, 1=yes)
+HighlightWindows=true           # Highlight window when hovering
+LayoutName=thumbnail_grid       # Layout: thumbnail_grid, big_icons, small_icons
+MinimizedMode=0                 # Include minimized windows (0=yes, 1=no)
+MultiScreenMode=0               # All screens (0) or current only (1)
+ShowDesktopMode=0               # Include "Show Desktop" (0=yes, 1=no)
+ShowTabBox=true                 # Show switcher UI
+SwitchingMode=0                 # Switching mode (0=recently used, 1=stacking order)
+
+[TabBoxAlternative]
+# Same settings for alternative switcher (if configured)
+ApplicationsMode=0
+BorderActivate=9
+BorderAlternativeActivate=9
+DesktopLayout=org.kde.breeze.desktop
+DesktopListLayout=org.kde.breeze.desktop
+DesktopMode=1
+HighlightWindows=true
+LayoutName=thumbnail_grid
+MinimizedMode=0
+MultiScreenMode=0
+ShowDesktopMode=0
+ShowTabBox=true
+SwitchingMode=0
+
+# ============================================================================
+# WAYLAND/X11 SETTINGS
+# ============================================================================
+[Xwayland]
+Scale=1                # UI scale for Xwayland apps (1=normal, 2=2x, etc.)
+
+[Wayland]
+# Add Wayland-specific settings here if needed
+
+# ============================================================================
+# ACTIVITIES (KDE Workspaces)
+# ============================================================================
+# Activities are separate workspace contexts (like virtual desktops on steroids)
+# Shortcuts to manage activities are in kglobalshortcutsrc
+
+# ============================================================================
+# PERFORMANCE TWEAKS
+# ============================================================================
+# These are already set above but summarized here for reference:
+# - GLCore=true (faster OpenGL)
+# - WindowsBlockCompositing=true (games can disable compositor)
+# - Better Blur DX instead of native blur (better performance)
+# - Limited number of effects enabled
+# - Krohnkite filters to prevent unnecessary tiling operations
+
+# ============================================================================
+# TROUBLESHOOTING NOTES
+# ============================================================================
+# 
+# Issue: Gray gaps between windows
+# Fix: Check ignoreClass in [Script-krohnkite] section
+# 
+# Issue: Blur not working
+# Fix: Install blur plugin (better_blur_dx or blur-plus)
+#      Verify: grep "blur.*Enabled" ~/.config/kwinrc
+# 
+# Issue: Gaps not showing
+# Fix: Ensure padding=4 in [Tiling] and screenGap*=4 in [Script-krohnkite]
+#      Restart: qdbus6 org.kde.KWin /KWin reconfigure
+# 
+# Issue: Krohnkite shortcuts not working
+# Fix: Check kglobalshortcutsrc has krohnkite section
+#      Clean: qdbus6 org.kde.kglobalaccel /component/kwin cleanUp
+# 
+# Issue: Performance issues
+# Fix: Disable unnecessary effects, lower blur strength
+#      Check: System Settings > Desktop Effects
+# 
+# ============================================================================
+# APPLYING CHANGES
+# ============================================================================
+# After editing this file, apply changes with:
+#   qdbus6 org.kde.KWin /KWin reconfigure
+# 
+# Or restart KWin:
+#   kwin_wayland --replace &  # For Wayland
+#   kwin_x11 --replace &      # For X11
+# 
+# Or logout/login for guaranteed application of all settings
+# ============================================================================

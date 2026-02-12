@@ -1,0 +1,12 @@
+./CHANGELOG.md
+./CONTRIBUTING.md
+./scripts/install.sh
+./LICENSE
+./config/kde/kwinrc
+./config/kde/kwinrulesrc
+./config/kde/krunnerrc
+./STRUCTURE.txt
+./README.md
+./PACKAGE_README.md
+./docs/plugins/RECOMMENDED_PLUGINS.md
+./docs/installation/DEPENDENCIES.md

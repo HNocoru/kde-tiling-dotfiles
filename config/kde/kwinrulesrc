@@ -1,0 +1,347 @@
+# ============================================================================
+# KWINRULESRC - KDE Window Rules Configuration
+# ============================================================================
+# Window rules control behavior of specific applications/windows
+# 
+# This configuration includes:
+# - Opacity rules for aesthetic transparency
+# - Minimum window size fixes
+# - Maximize prevention (keeps borders visible)
+# - Krohnkite filters (prevents gray gaps)
+# - Auto-float rules for specific app types
+# 
+# Total: 17 optimized window rules
+# ============================================================================
+
+[General]
+count=17
+rules=minimum-size,no-maximize-horiz-vert,brave-opacity,vscode-opacity,discord-opacity,kitty-opacity,systemsettings-opacity,dolphin-opacity,spotify-opacity,firefox-opacity,alacritty-opacity,steam-opacity,krohnkite-filters,floating-apps,zen-browser-blur,zen-browser-opacity,auto-tile-exceptions
+
+# ============================================================================
+# BASIC WINDOW BEHAVIOR FIXES
+# ============================================================================
+
+# --- Fix: Minimum Window Size ---
+# Some apps (Discord, Electron apps) have issues with 0x0 minimum size
+# causing layout problems. This sets a safe minimum.
+[minimum-size]
+Description=Minimum window size 0x0 (fixes Discord, Electron apps)
+minsize=0,0              # Allow 0x0 minimum (app decides)
+minsizerule=2            # Rule type: 2 = Apply
+# Note: Counter-intuitive but this actually FIXES the issue by explicitly allowing 0,0
+
+# --- Fix: Prevent Maximize Border Loss ---
+# When windows maximize, they sometimes lose borders/shadows
+# This prevents full maximize while allowing tiling
+[no-maximize-horiz-vert]
+Description=Prevent borders/shadows disappearing on maximize
+maximizehoriz=false      # Don't maximize horizontally
+maximizehorizrule=2      # Apply rule
+maximizevert=false       # Don't maximize vertically
+maximizevertrule=2       # Apply rule
+# Windows can still tile (via Krohnkite) but won't use broken maximize
+
+# ============================================================================
+# OPACITY RULES (Aesthetic Transparency)
+# ============================================================================
+# Makes windows slightly transparent for a modern aesthetic
+# Active = window has focus, Inactive = window doesn't have focus
+# Values: 0-100 (100 = opaque, 0 = fully transparent)
+
+# --- Brave Browser ---
+[brave-opacity]
+Description=Brave Browser - opacity for aesthetic
+opacityactive=90         # 90% visible when focused
+opacityactiverule=2      # Apply rule
+opacityinactive=85       # 85% visible when not focused
+opacityinactiverule=2    # Apply rule
+wmclass=brave brave-browser
+wmclasscomplete=true     # Match complete wmclass
+wmclassmatch=1           # Exact match
+types=1                  # Apply to normal windows
+
+# --- Visual Studio Code ---
+[vscode-opacity]
+Description=VSCode - opacity for aesthetic
+opacityactive=91         # Slightly more visible (text editor)
+opacityactiverule=2
+opacityinactive=83       # Dimmer when not in use
+opacityinactiverule=2
+wmclass=code Code
+wmclasscomplete=true
+wmclassmatch=1
+types=1
+
+# --- Discord / Vesktop ---
+[discord-opacity]
+Description=Discord/Vesktop - opacity for aesthetic
+opacityactive=92         # High visibility (chat app)
+opacityactiverule=2
+opacityinactive=87       # Still visible when inactive
+opacityinactiverule=2
+wmclass=vesktop discord Discord
+wmclasscomplete=true
+wmclassmatch=1
+types=1
+
+# --- Kitty Terminal ---
+[kitty-opacity]
+Description=Kitty terminal - opacity for aesthetic
+opacityactive=88         # Lower for terminal aesthetic
+opacityactiverule=2
+opacityinactive=80       # More transparent when inactive
+opacityinactiverule=2
+wmclass=kitty
+wmclasscomplete=true
+wmclassmatch=1
+types=1
+
+# --- System Settings ---
+[systemsettings-opacity]
+Description=KDE System Settings - opacity for aesthetic
+opacityactive=82         # Lower opacity (temporary window)
+opacityactiverule=2
+opacityinactive=73       # Quite transparent when inactive
+opacityinactiverule=2
+wmclass=systemsettings systemsettings
+wmclasscomplete=true
+wmclassmatch=1
+types=1
+
+# --- Dolphin File Manager ---
+[dolphin-opacity]
+Description=Dolphin file manager - opacity for aesthetic
+opacityactive=85         # Moderate transparency
+opacityactiverule=2
+opacityinactive=78       # Dimmer when not active
+opacityinactiverule=2
+wmclass=dolphin org.kde.dolphin
+wmclasscomplete=true
+wmclassmatch=1
+types=1
+
+# --- Spotify ---
+[spotify-opacity]
+Description=Spotify - opacity for aesthetic
+opacityactive=93         # High visibility (album art)
+opacityactiverule=2
+opacityinactive=88       # Still visible when playing in background
+opacityinactiverule=2
+wmclass=spotify Spotify
+wmclasscomplete=true
+wmclassmatch=1
+types=1
+
+# --- Firefox ---
+[firefox-opacity]
+Description=Firefox - opacity for aesthetic
+opacityactive=90         # Standard browser opacity
+opacityactiverule=2
+opacityinactive=85       # Dimmer when not active
+opacityinactiverule=2
+wmclass=firefox Navigator firefox
+wmclasscomplete=true
+wmclassmatch=1
+types=1
+
+# --- Alacritty Terminal ---
+[alacritty-opacity]
+Description=Alacritty terminal - opacity for aesthetic
+opacityactive=88         # Terminal opacity
+opacityactiverule=2
+opacityinactive=80       # More transparent when inactive
+opacityinactiverule=2
+wmclass=Alacritty alacritty
+wmclasscomplete=true
+wmclassmatch=1
+types=1
+
+# --- Steam ---
+[steam-opacity]
+Description=Steam - opacity for aesthetic
+opacityactive=90         # Standard app opacity
+opacityactiverule=2
+opacityinactive=85       # Dimmer when not active
+opacityinactiverule=2
+wmclass=steam Steam
+wmclasscomplete=true
+wmclassmatch=1
+types=1
+
+# ============================================================================
+# KROHNKITE FILTERS (Critical for proper tiling)
+# ============================================================================
+# These window classes cause "gray gaps" or other issues when tiled
+# They should be excluded from Krohnkite's tiling system
+
+[krohnkite-filters]
+Description=1x1 windows that cause gray gaps (Krohnkite filters)
+wmclass=xwaylandvideobridge plasmashell ksplashqml kded5 kded6 ksplash
+wmclassmatch=1           # Exact match
+# These are system windows that shouldn't be tiled
+# xwaylandvideobridge = screen sharing bridge
+# plasmashell = KDE desktop shell
+# ksplashqml = boot splash screen
+# kded5/kded6 = KDE daemon
+# ksplash = KDE splash screen
+
+# ============================================================================
+# AUTO-FLOAT RULES
+# ============================================================================
+# These applications should always float (not be tiled automatically)
+
+[floating-apps]
+Description=Applications that should float by default
+wmclass=kcalc plasma-desktop krunner yakuake spectacle latte-dock
+wmclassmatch=1
+above=true               # Keep above other windows
+aboverule=2              # Apply rule
+# kcalc = KDE calculator
+# plasma-desktop = desktop interactions
+# krunner = app launcher
+# yakuake = drop-down terminal
+# spectacle = screenshot tool
+# latte-dock = dock application
+
+# ============================================================================
+# ZEN BROWSER CONFIGURATION
+# ============================================================================
+# Zen Browser is a Firefox fork that needs special handling
+
+# --- Zen Browser Blur ---
+[zen-browser-blur]
+Description=Zen Browser - force blur effect
+blurred=true             # Enable blur for this window
+blurredrule=2            # Apply rule
+wmclass=zen-browser zen Zen-browser
+wmclasscomplete=true
+wmclassmatch=1
+types=1
+
+# --- Zen Browser Opacity ---
+[zen-browser-opacity]
+Description=Zen Browser - opacity settings
+opacityactive=92         # High visibility (browser)
+opacityactiverule=2
+opacityinactive=88       # Dimmer when not active
+opacityinactiverule=2
+wmclass=zen-browser zen Zen-browser
+wmclasscomplete=true
+wmclassmatch=1
+types=1
+
+# ============================================================================
+# TILING EXCEPTIONS
+# ============================================================================
+# Windows that should never be tiled (dialogs, popups, etc.)
+
+[auto-tile-exceptions]
+Description=Windows that should never be tiled
+types=32                 # Window type: 32 = dialog windows
+# Automatically excludes:
+# - File dialogs
+# - Settings dialogs
+# - Confirmation popups
+# - Error messages
+# - About windows
+
+# ============================================================================
+# ADDING YOUR OWN RULES
+# ============================================================================
+# 
+# To add a new window rule:
+# 
+# 1. Find the wmclass of the app:
+#    Run in terminal: xprop | grep WM_CLASS
+#    Then click on the app window
+#    Use the SECOND value (e.g., "chromium" from "chromium", "Chromium")
+# 
+# 2. Add a new rule section:
+#    [my-app-rule]
+#    Description=My App - description
+#    opacityactive=90
+#    opacityactiverule=2
+#    opacityinactive=85
+#    opacityinactiverule=2
+#    wmclass=my-app
+#    wmclasscomplete=true
+#    wmclassmatch=1
+#    types=1
+# 
+# 3. Update [General] section:
+#    - Increment count by 1
+#    - Add rule name to rules= line (comma-separated)
+# 
+# 4. Apply changes:
+#    qdbus6 org.kde.KWin /KWin reconfigure
+# 
+# ============================================================================
+# RULE OPTIONS EXPLAINED
+# ============================================================================
+# 
+# opacityactive = opacity when window has focus (0-100)
+# opacityinactive = opacity when window doesn't have focus (0-100)
+# *rule=2 means "Apply" (1=Don't Affect, 2=Force, 3=Apply Initially)
+# 
+# wmclass = window class to match (from xprop)
+# wmclasscomplete = match complete wmclass (true) or just part (false)
+# wmclassmatch = 1 (exact), 2 (substring), 3 (regex)
+# 
+# types = window types to apply to:
+#   1 = normal windows
+#   2 = dialog
+#   4 = utility
+#   8 = dock
+#   16 = toolbar
+#   32 = menu
+#   64 = splash
+#   128 = desktop
+#   256 = override redirect
+# 
+# above = keep window above others (true/false)
+# below = keep window below others (true/false)
+# noborder = remove window border (true/false)
+# skiptaskbar = hide from taskbar (true/false)
+# skippager = hide from pager (true/false)
+# skipswitch = skip in Alt+Tab (true/false)
+# fullscreen = force fullscreen (true/false)
+# minimized = start minimized (true/false)
+# maximizehoriz/maximizevert = force maximize (true/false)
+# position = force window position (x,y coordinates)
+# size = force window size (width,height in pixels)
+# minsize/maxsize = min/max window size
+# 
+# ============================================================================
+# TROUBLESHOOTING
+# ============================================================================
+# 
+# Issue: Opacity not working
+# Fix: Ensure compositor is enabled (kwinrc [Compositing] Enabled=true)
+#      Check blur is working (affects opacity visibility)
+# 
+# Issue: Wrong app affected by rule
+# Fix: Verify wmclass with: xprop | grep WM_CLASS
+#      Use wmclassmatch=1 for exact match
+# 
+# Issue: Gray gaps still appearing
+# Fix: Add problematic app to krohnkite-filters rule
+#      Find wmclass and add to the list
+# 
+# Issue: App keeps maximizing when it shouldn't
+# Fix: Check no-maximize-horiz-vert rule is applied
+#      Or create specific rule for that app
+# 
+# Issue: Dialog windows being tiled
+# Fix: Ensure auto-tile-exceptions rule is active
+#      types=32 should catch most dialogs
+# 
+# ============================================================================
+# APPLYING CHANGES
+# ============================================================================
+# After editing this file:
+#   qdbus6 org.kde.KWin /KWin reconfigure
+# 
+# To verify rules are applied:
+#   qdbus6 org.kde.KWin /KWin queryWindowInfo
+# Then click on a window to see its properties and applied rules
+# ============================================================================

@@ -1,0 +1,113 @@
+# KDE Tiling WM Dotfiles - .gitignore
+
+# Backup files
+*.backup
+*.bak
+*~
+*.swp
+*.swo
+backups/
+*.backup.*
+
+# User-specific configurations
+config/kde/*.lock
+config/kde/*lock*
+
+# KDE cache and runtime files
+*.kcrash
+.directory
+.kde/
+.kde4/
+*.ksplash
+
+# Dolphin/file manager
+.Trash-*/
+Thumbs.db
+
+# Plasma specific
+plasma-org.kde.plasma.desktop-appletsrc
+plasmashellrc
+plasmarc
+
+# Session files
+session/
+*_session
+
+# Screenshots (add your own separately)
+screenshots/*.png
+screenshots/*.jpg
+screenshots/*.jpeg
+screenshots/*.gif
+!screenshots/README.md
+!screenshots/.gitkeep
+
+# Build artifacts
+build/
+dist/
+*.o
+*.so
+*.a
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.Python
+venv/
+env/
+
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.DS_Store
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Logs
+*.log
+logs/
+
+# Archives
+*.tar
+*.tar.gz
+*.tar.xz
+*.tar.bz2
+*.zip
+*.7z
+*.rar
+
+# Personal notes (if you make any)
+notes.txt
+TODO.private.md
+personal/
+
+# Test files
+test/
+tests/
+*.test
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Desktop.ini
+
+# KDE session management
+.kwriteconfig-lock
+.kde-tmp-*
+kdeglobals.lock
